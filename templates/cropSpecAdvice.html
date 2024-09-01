@@ -1,0 +1,326 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crops Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .crop-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            width: 70%;
+            max-width: 1000px;
+        }
+
+        .crop-box {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            width: calc(25% - 15px); /* Adjusted width to fit more boxes */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .crop-box img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            border-radius: 8px;
+        }
+
+        .crop-info h3 {
+            color: darkgreen;
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .advice-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 400px; /* Fixed width for better control */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .advice-container h2 {
+            color: darkgreen;
+            margin-top: 0;
+        }
+
+        .advice-container ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 0;
+        }
+
+        @media (max-width: 768px) {
+            .crop-box {
+                width: calc(33.33% - 15px); /* Adjusted width for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .crop-box {
+                width: calc(50% - 15px); /* Adjusted width for smaller screens */
+            }
+        }
+
+        @media (max-width: 360px) {
+            .crop-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="crop-container">
+        <div class="crop-box" data-crop="paddy">
+            <img src="../static/images/paddy.jpeg" alt="Paddy">
+            <div class="crop-info">
+                <h3>Paddy</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="wheat">
+            <img src="../static/images/wheat.jpeg" alt="Wheat">
+            <div class="crop-info">
+                <h3>Wheat</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="cotton">
+            <img src="../static/images/cotton.jpeg" alt="Cotton">
+            <div class="crop-info">
+                <h3>Cotton</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="groundnut">
+            <img src="../static/images/groundnut.jpeg" alt="Groundnut">
+            <div class="crop-info">
+                <h3>Groundnut</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="sugarcane">
+            <img src="../static/images/sugarcane.jpeg" alt="Sugarcane">
+            <div class="crop-info">
+                <h3>Sugarcane</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="moringa">
+            <img src="../static/images/moringa.jpeg" alt="Ladies Finger">
+            <div class="crop-info">
+                <h3>Ladies Finger</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="potato">
+            <img src="../static/images/potato.jpg" alt="Potato">
+            <div class="crop-info">
+                <h3>Potato</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="spinach">
+            <img src="../static/images/spinach.jpeg" alt="Spinach">
+            <div class="crop-info">
+                <h3>Spinach</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="okra">
+            <img src="../static/images/ladiesfinger.jpeg" alt="Okra">
+            <div class="crop-info">
+                <h3>Okra</h3>
+            </div>
+        </div>
+        <div class="crop-box" data-crop="onion">
+            <img src="../static/images/onion.jpeg" alt="Onion">
+            <div class="crop-info">
+                <h3>Onion</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="advice-container" id="advice-container">
+        <h2>Crop Specific Advice</h2>
+        <ul id="advice-list"></ul>
+        <button onclick="document.getElementById('advice-container').style.display='none'">Close</button>
+    </div>
+
+    <script>
+        const cropData = {
+            'paddy': [
+                'Irrigation Type: Flood irrigation',
+                'Land Type: Loamy soil',
+                'Best Soil Type: Silty loam',
+                'Pest Control: Monitor for rice weevils and brown planthoppers',
+                'Fertilizer: Use nitrogen-rich fertilizers',
+                'Optimal Temperature: 20-35°C',
+                'Planting Depth: 2-4 cm',
+                'Harvest Time: 4-5 months',
+                'Spacing: 20 cm x 20 cm',
+                'Additional Tip: Ensure adequate water supply during growth'
+            ],
+            'wheat': [
+                'Irrigation Type: Drip or sprinkler',
+                'Land Type: Well-drained soil',
+                'Best Soil Type: Loam or clay loam',
+                'Pest Control: Watch for aphids and rusts',
+                'Fertilizer: Apply balanced NPK fertilizers',
+                'Optimal Temperature: 15-20°C',
+                'Planting Depth: 5-7 cm',
+                'Harvest Time: 6-8 months',
+                'Spacing: 20 cm x 25 cm',
+                'Additional Tip: Rotate crops to prevent soil depletion'
+            ],
+            'cotton': [
+                'Irrigation Type: Drip irrigation',
+                'Land Type: Well-drained, sandy loam',
+                'Best Soil Type: Loamy soil with good drainage',
+                'Pest Control: Manage bollworms and aphids',
+                'Fertilizer: Use potassium and phosphorus-rich fertilizers',
+                'Optimal Temperature: 21-30°C',
+                'Planting Depth: 2-3 cm',
+                'Harvest Time: 5-6 months',
+                'Spacing: 90 cm x 30 cm',
+                'Additional Tip: Regularly check for disease and pests'
+            ],
+            'groundnut': [
+                'Irrigation Type: Drip or furrow irrigation',
+                'Land Type: Sandy loam to loam',
+                'Best Soil Type: Well-drained, slightly acidic soil',
+                'Pest Control: Control termites and leaf spots',
+                'Fertilizer: Apply balanced NPK fertilizers',
+                'Optimal Temperature: 20-30°C',
+                'Planting Depth: 5-8 cm',
+                'Harvest Time: 4-5 months',
+                'Spacing: 30 cm x 10 cm',
+                'Additional Tip: Ensure proper soil aeration for pod development'
+            ],
+            'sugarcane': [
+                'Irrigation Type: Flood or drip irrigation',
+                'Land Type: Fertile, well-drained soil',
+                'Best Soil Type: Loamy to clayey soil',
+                'Pest Control: Manage sugarcane borers and rusts',
+                'Fertilizer: Use high-phosphorus fertilizers',
+                'Optimal Temperature: 20-30°C',
+                'Planting Depth: 5-10 cm',
+                'Harvest Time: 12-18 months',
+                'Spacing: 1.2 m x 1 m',
+                'Additional Tip: Keep fields free from weeds'
+            ],
+            'moringa': [
+                'Irrigation Type: Regular watering',
+                'Land Type: Well-drained, sandy loam',
+                'Best Soil Type: Slightly acidic to neutral',
+                'Pest Control: Watch for aphids and spider mites',
+                'Fertilizer: Use balanced fertilizers with high potassium',
+                'Optimal Temperature: 25-35°C',
+                'Planting Depth: 2-3 cm',
+                'Harvest Time: 2-3 months',
+                'Spacing: 1 m x 1 m',
+                'Additional Tip: Prune regularly to promote branching'
+            ],
+            'potato': [
+                'Irrigation Type: Drip or furrow irrigation',
+                'Land Type: Well-drained, loose soil',
+                'Best Soil Type: Sandy loam to loam',
+                'Pest Control: Manage late blight and aphids',
+                'Fertilizer: Use balanced NPK fertilizers',
+                'Optimal Temperature: 15-20°C',
+                'Planting Depth: 10-15 cm',
+                'Harvest Time: 3-4 months',
+                'Spacing: 30 cm x 30 cm',
+                'Additional Tip: Avoid overwatering to prevent tuber rot'
+            ],
+            'spinach': [
+                'Irrigation Type: Regular watering or drip irrigation',
+                'Land Type: Loamy, well-drained soil',
+                'Best Soil Type: Rich in organic matter',
+                'Pest Control: Control aphids and leaf miners',
+                'Fertilizer: Apply nitrogen-rich fertilizers',
+                'Optimal Temperature: 10-20°C',
+                'Planting Depth: 1-2 cm',
+                'Harvest Time: 6-8 weeks',
+                'Spacing: 20 cm x 15 cm',
+                'Additional Tip: Harvest leaves regularly to promote new growth'
+            ],
+            'okra': [
+                'Irrigation Type: Drip or regular watering',
+                'Land Type: Well-drained, fertile soil',
+                'Best Soil Type: Loamy to sandy loam',
+                'Pest Control: Manage aphids and spider mites',
+                'Fertilizer: Use balanced NPK fertilizers',
+                'Optimal Temperature: 25-35°C',
+                'Planting Depth: 2-3 cm',
+                'Harvest Time: 2-3 months',
+                'Spacing: 30 cm x 30 cm',
+                'Additional Tip: Harvest pods when young for best quality'
+            ],
+            'onion': [
+                'Irrigation Type: Drip irrigation or furrow irrigation',
+                'Land Type: Well-drained soil with high organic matter',
+                'Best Soil Type: Loam or sandy loam',
+                'Pest Control: Watch for thrips and mildew',
+                'Fertilizer: Use balanced NPK fertilizers with higher potassium',
+                'Optimal Temperature: 15-25°C',
+                'Planting Depth: 2-3 cm',
+                'Harvest Time: 4-6 months',
+                'Spacing: 15 cm x 10 cm',
+                'Additional Tip: Ensure proper spacing for bulb development'
+            ],
+            'cotton': [
+                'Irrigation Type: Drip irrigation or furrow irrigation',
+                'Land Type: Well-drained soil',
+                'Best Soil Type: Sandy loam to loam',
+                'Pest Control: Manage bollworms and aphids',
+                'Fertilizer: Use balanced NPK fertilizers',
+                'Optimal Temperature: 20-30°C',
+                'Planting Depth: 2-3 cm',
+                'Harvest Time: 5-6 months',
+                'Spacing: 90 cm x 30 cm',
+                'Additional Tip: Regularly inspect for pests and diseases'
+            ]
+        };
+
+        document.querySelectorAll('.crop-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const crop = this.getAttribute('data-crop');
+                const adviceContainer = document.getElementById('advice-container');
+                const adviceList = document.getElementById('advice-list');
+                adviceList.innerHTML = '';
+
+                if (cropData[crop]) {
+                    cropData[crop].forEach(advice => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = advice;
+                        adviceList.appendChild(listItem);
+                    });
+                }
+
+                adviceContainer.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

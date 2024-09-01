@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Kisaan Connect</title>
+    <style>
+        /* Resetting some default styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo {
+            width: 50px;
+            height: auto;
+        }
+
+        .app-name {
+            margin-left: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .header-right a:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 5px;
+            padding: 10px;
+            width: 200px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Main content styles */
+        main {
+            padding: 20px;
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Login Page Styles */
+        body {
+            background-color: #e0ffe0; /* Light green background */
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white; /* White background for the container */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+        }
+
+        .login-logo img {
+            width: 50px;
+        }
+
+        .login-logo h2 {
+            margin: 10px 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .login-form-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .login-form {
+            flex: 1;
+            text-align: left;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-bottom: 10px;
+            color: #888;
+            text-align: right;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .login-divider span {
+            margin: 0 10px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .social-button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .face-login {
+            background-color: #ffec33;
+            color: #333;
+        }
+
+        .google-login {
+            background-color: #db4437;
+            color: white;
+        }
+
+        .microsoft-login {
+            background-color: #0078d4;
+            color: white;
+        }
+
+        .social-button:hover {
+            opacity: 0.9;
+        }
+
+        .signup-prompt {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .signup-prompt a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .signup-prompt a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header with Logo, Kisaan Connect, and Navigation Links -->
+    <header class="header">
+        <div class="header-left">
+            <a href="{{ url_for('index') }}" class="header-logo-link">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+                <span class="app-name">Kisaan Connect</span>
+            </a>
+        </div>
+        <nav class="header-right">
+            <div class="dropdown">
+                <a href="#" id="servicesLink" class="dropdown-toggle">Services</a>
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="{{ url_for('market_updates') }}">Market Updates</a>
+                    <a href="{{ url_for('pests_prediction') }}">Pests Prediction</a>
+                    <a href="{{ url_for('disease_prediction') }}">Disease Prediction</a>
+                    <a href="{{ url_for('virtual_farmer_assistant') }}">Virtual Farmer Assistant</a>
+                    <a href="{{ url_for('knowledge_sharing_forum') }}">Knowledge Sharing Forum</a>
+                </div>
+            </div>
+            <a href="{{ url_for('about_us') }}">About Us</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="login-container">
+            <div class="login-logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Kisan Connect Logo">
+                <h2>Kisan Connect</h2>
+            </div>
+
+            <div class="login-form-container">
+                <div class="login-form">
+                    <form id="loginForm" action="/login" method="post">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+
+                        <a href="/forgot-password" class="forgot-password">Forgot Password?</a><br>
+                        <button type="submit" class="login-button">Login</button>
+                    </form>
+                </div>
+
+                <div class="login-divider">
+                    <span>Or</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-button face-login">Face Recognition</button>
+                    <button class="social-button google-login">Google Account</button>
+                    <button class="social-button microsoft-login">Microsoft Account</button>
+                </div>
+            </div>
+
+            <div class="signup-prompt">
+                <br>
+                <p>Don't Have an Account Yet? <a href="{{ url_for('register') }}">Sign Up Here</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Kisaan Connect. All rights reserved.</p>
+    </footer>
+    </body>
+
+    <script>
+        // JavaScript to handle dropdown
+        document.getElementById('servicesLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            var dropdown = document.getElementById('dropdownContent');
+            var isVisible = dropdown.style.display === 'block';
+            dropdown.style.display = isVisible ? 'none' : 'block';
+        });
+    
+        // Close dropdown if clicking outside
+        document.addEventListener('click', function(event) {
+            var dropdown = document.getElementById('dropdownContent');
+            var servicesLink = document.getElementById('servicesLink');
+            if (!dropdown.contains(event.target) && !servicesLink.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    
+        // Form Validation Script
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+    
+            // Check if fields are empty
+            if (username.trim() === '' || password.trim() === '') {
+                alert('Please fill out all fields.');
+                event.preventDefault();
+                return;
+            }
+    
+            // Validate username and password
+            if (username === 'Sru_TechTitans' && password === 'SRU@123') {
+                // Redirect to dashboard.html if credentials are correct
+                window.location.href = 'dashboard.html'; // Ensure the correct path to your dashboard file
+            } else {
+                // Show error message if credentials are incorrect
+                alert('Incorrect username or password.');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+    
+</html>
+

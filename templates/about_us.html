@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0ffe0;
+            margin: 0;
+            padding: 0;
+            color: #2c3e50;
+        }
+
+        #about-us {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #27ae60;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2e8b57;
+            font-size: 24px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 5px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+
+        ul {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            list-style-type: disc;
+        }
+
+        strong {
+            color: #27ae60;
+        }
+
+        @media screen and (max-width: 768px) {
+            #about-us {
+                margin: 20px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p, ul li {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section id="about-us">
+        <h1>About Us - Kisan Connect</h1>
+        <p>Welcome to <strong>Kisan Connect</strong>, your gateway to smarter, more sustainable farming. Our mission is to empower farmers, buyers, and marketplace providers with the tools they need to thrive in the modern agricultural landscape.</p>
+
+        <h2>Who We Are</h2>
+        <p>Kisan Connect is a comprehensive, user-friendly platform designed to revolutionize the way agriculture is practiced and traded. We bring together cutting-edge technology, AI-driven insights, and a strong community spirit to help farmers make informed decisions, maximize profits, and adapt to changing conditions.</p>
+
+        <h2>Our Vision</h2>
+        <p>At Kisan Connect, we envision a world where every farmer has access to the knowledge, resources, and markets they need to succeed. We strive to create a sustainable agricultural ecosystem where technology meets tradition, ensuring food security and prosperity for all.</p>
+
+        <h2>What We Offer</h2>
+        <ul>
+            <li><strong>Crop-Specific Advice:</strong> Tailored recommendations on irrigation, soil type, nutrient management, and more to help you grow healthier, more productive crops.</li>
+            <li><strong>Real-Time Weather Data:</strong> Stay ahead of the weather with real-time updates and long-term forecasts, enabling you to make smart decisions about planting, irrigation, and crop rotation.</li>
+            <li><strong>Market Updates:</strong> Get the latest market trends and price analyses to optimize your selling strategies, plan your finances, and enhance your crop diversification efforts.</li>
+            <li><strong>AI-Driven Disease & Pest Identification:</strong> Harness the power of AI to detect diseases and pests early, access crucial information, and get guidance on effective prevention and treatment methods.</li>
+            <li><strong>Knowledge-Sharing Forum:</strong> Connect with fellow farmers, experts, and marketplace providers to exchange ideas, share experiences, and collaborate on innovative farming practices.</li>
+            <li><strong>Buyer & Seller Platform:</strong> Reach a broader market, engage in transparent transactions, and utilize our bidding system for fair pricing and contracts.</li>
+            <li><strong>Virtual Farming Assistant:</strong> Receive personalized farming advice tailored to your specific needs and conditions, right at your fingertips.</li>
+            <li><strong>Daily Tips & Government Schemes:</strong> Stay informed with our daily farming tips and seamlessly integrate with government schemes through centralized applications.</li>
+        </ul>
+
+        <h2>Our Commitment</h2>
+        <p>Kisan Connect is committed to fostering a vibrant, inclusive, and sustainable agricultural community. We believe that by connecting farmers with the right tools, knowledge, and markets, we can help them achieve greater success and resilience in the face of challenges.</p>
+
+        <p>Join us on this journey towards smarter farming. Together, we can grow a better future.</p>
+    </section>
+</body>
+{% endblock %}

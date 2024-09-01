@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisaan Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Header with Logo, Kisaan Connect, and Navigation Links -->
+    <header class="header">
+        <div class="header-left">
+            <a href="{{ url_for('index') }}" class="header-logo-link">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+                <span class="app-name">Kisaan Connect</span>
+            </a>
+        </div>
+        <nav class="header-right">
+            <div class="dropdown">
+                <a href="#" id="servicesLink" class="dropdown-toggle">Services</a>
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="{{ url_for('market_updates') }}">Market Updates</a>
+                    <a href="{{ url_for('pests_prediction') }}">Pests Prediction</a>
+                    <a href="{{ url_for('disease_prediction') }}">Disease Prediction</a>
+                    <a href="{{ url_for('virtual_farmer_assistant') }}">Virtual Farmer Assistant</a>
+                    <a href="{{ url_for('knowledge_sharing_forum') }}">Knowledge Sharing Forum</a>
+                </div>
+            </div>
+            <a href="{{ url_for('about_us') }}">About Us</a>
+            <a href="{{ url_for('login') }}">Login/Register</a>
+            
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Kisaan Connect. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript to handle dropdown
+        document.getElementById('servicesLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            var dropdown = document.getElementById('dropdownContent');
+            var isVisible = dropdown.style.display === 'block';
+            dropdown.style.display = isVisible ? 'none' : 'block';
+        });
+
+        // Close dropdown if clicking outside
+        document.addEventListener('click', function(event) {
+            var dropdown = document.getElementById('dropdownContent');
+            var servicesLink = document.getElementById('servicesLink');
+            if (!dropdown.contains(event.target) && !servicesLink.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

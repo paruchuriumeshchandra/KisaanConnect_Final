@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Kisaan Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Additional styles for sliding box, advertising line, and container boxes */
+        .sliding-box {
+            border: 2px solid #336633;
+            /* Dark green border */
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            width: 400px;
+            /* Increased width */
+            height: 250px;
+            /* Increased height */
+            margin-right: 20px;
+            /* Space between box and advertisement */
+        }
+
+        .sliding-box img {
+            width: calc(100% - 1cm);
+            /* 0.5cm space on each side */
+            height: calc(100% - 1cm);
+            /* 0.5cm space on each side */
+            object-fit: cover;
+            position: absolute;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .sliding-box img.active {
+            opacity: 1;
+        }
+
+        .sliding-box img.inactive {
+            opacity: 0;
+        }
+
+        .advertising-line {
+            position: absolute;
+            top: 10px;
+            /* Position at the top-right */
+            right: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ff00;
+            /* Bright green text color */
+            animation: zoomInOut 3s ease-in-out infinite;
+        }
+
+        @keyframes zoomInOut {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .content-wrapper {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .container-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .container-box {
+            border: 2px solid #336633;
+            /* Dark green border */
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 150px;
+            /* Adjust as needed */
+            width: 100%;
+            /* Full width within the container */
+        }
+
+        .container-wrapper .top-boxes {
+            display: flex;
+            gap: 10px;
+        }
+
+        .container-wrapper .box {
+            flex: 1;
+            /* Adjust to fit two boxes side by side */
+        }
+        #h{
+            border: 2px solid #ffffff
+        }
+
+        .container-wrapper .full-width-box {
+            flex: 1;
+            /* Full width for the bottom box */
+        }
+    </style>
+</head>
+
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="content-wrapper">
+        <!-- Sliding Image Box -->
+        <div class="sliding-box">
+            <img src="{{ url_for('static', filename='images/image1.jpeg') }}" class="active" alt="Slide 1">
+            <img src="{{ url_for('static', filename='images/image2.jpeg') }}" class="inactive" alt="Slide 2">
+            <img src="{{ url_for('static', filename='images/image3.jpeg') }}" class="inactive" alt="Slide 3">
+            <img src="{{ url_for('static', filename='images/image4.jpeg') }}" class="inactive" alt="Slide 4">
+        </div>
+
+        <!-- Container Boxes -->
+
+        <div class="advertising-line">
+            Discover the Best Farming Solutions with Kisaan Connect!
+        </div>
+        <div class="container-wrapper">
+            <div class="top-boxes">
+                <a href="{{ url_for('cropSpecAdvice') }}">
+                <div class="box container-box">
+                    <img src="{{ url_for('static', filename='images/paddy.jpeg') }}" alt="Crop Advice Image" style="width: 100%; height: auto; border-radius: 8px;">
+                    <center><p>Specific Crop Advice</p></center>
+                </div>   
+                </a>             
+                <div class="box container-box">
+                    <div class="box container-box" id="h">
+                        <form action="/" method="post">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city" required><br><br>
+                            <center><button type="submit">Get Weather</button></center>
+                        </form>
+
+                        {% if weather_data %}
+                        <div style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 20px;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    background-color: #f9f9f9;
+                    animation: fadeIn 1s ease-in-out;
+                ">
+                            {% if weather_data.cod == 200 %}
+                            <h2 style="
+                            margin: 0;
+                            font-size: 24px;
+                            color: #333;
+                        ">Weather Insights</h2>
+                            <p style="
+                            margin: 5px 0;
+                            font-size: 18px;
+                            color: #555;
+                        ">City: {{ weather_data.name }}</p>
+                            <p style="
+                            margin: 5px 0;
+                            font-size: 18px;
+                            color: #555;
+                        ">Temperature: {{ weather_data.main.temp }}°C</p>
+                            <p style="
+                            margin: 5px 0;
+                            font-size: 18px;
+                            color: #555;
+                        ">Condition: {{ weather_data.weather[0].description }}</p>
+                            {% else %}
+                            <p style="
+                            color: red;
+                            font-size: 18px;
+                        ">Error: {{ weather_data.message }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <style>
+                        @keyframes fadeIn {
+                            from {
+                                opacity: 0;
+                            }
+
+                            to {
+                                opacity: 1;
+                            }
+                        }
+                    </style>
+                </div>
+            </div>
+            <div class="full-width-box container-box">
+                <!-- Content for the third box -->
+                 <br>
+                <center><p>Container for Pest and Disease Prediction</p></center>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle the image sliding
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.sliding-box img');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                slide.classList.add('inactive');
+            });
+            slides[index].classList.remove('inactive');
+            slides[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        setInterval(nextSlide, 2000); // Change slide every 3 seconds
+    </script>
+    {% endblock %}
+</body>
+
+</html>
